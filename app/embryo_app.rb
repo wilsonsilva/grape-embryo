@@ -14,8 +14,6 @@ module Embryo
       end.to_app
     end
 
-    def call(env)
-      Embryo::API.call(env)
-    end
+    delegate :call, to: Embryo::API
   end
 end
