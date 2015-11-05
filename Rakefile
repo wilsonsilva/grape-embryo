@@ -6,6 +6,14 @@ require 'rake'
 require 'rspec/core'
 require 'rspec/core/rake_task'
 
+require 'grape/activerecord/rake'
+
+namespace :db do
+  task :environment do
+    require_relative 'config/environment'
+  end
+end
+
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/api/*_spec.rb']
 end
