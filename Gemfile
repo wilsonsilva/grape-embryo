@@ -12,6 +12,7 @@ gem 'mime-types', '~> 2.6.2'
 gem 'nokogiri', '1.6.6.2'
 
 group :development do
+  gem 'rack-console'
   gem 'rake', '~> 10.4.2'
   gem 'guard', '~> 2.13.0'
   gem 'guard-bundler', '~> 2.1.0'
