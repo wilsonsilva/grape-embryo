@@ -12,6 +12,7 @@ guard :rspec, all_on_start: true, cmd: 'bundle exec rspec --format progress' do
   watch(%r{^app/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/api/(.+)\.rb$}) { |m| "spec/api/#{m[1]}_spec.rb" }
   watch(%r{^models/(.+)\.rb$}) { |m| "spec/models/#{m[1]}_spec.rb" }
+  watch(%r{^spec/support/factories/(.+)\.rb}) { 'spec' }
   watch('spec/spec_helper.rb') { 'spec' }
 end
 

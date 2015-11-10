@@ -37,6 +37,8 @@ GEM
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
     ffi (1.9.10)
     formatador (0.2.5)
     grape (0.13.0)
@@ -181,6 +183,7 @@ PLATFORMS
 
 DEPENDENCIES
   airborne (~> 0.1.15)
+  factory_girl (~> 4.5.0)
   grape (~> 0.13.0)
   grape-activerecord (~> 1.1.1)
   grape-entity (~> 0.4.8)
