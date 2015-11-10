@@ -14,4 +14,7 @@ RSpec.configure do |config|
   config.expect_with :rspec
   config.raise_errors_for_deprecations!
   config.rack_app = Embryo::App.instance
+
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 end
