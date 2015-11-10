@@ -5,3 +5,6 @@ AllCops:
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:
   Max: 120
+
+Style/SpaceInsideHashLiteralBraces:
+  Enabled: false
