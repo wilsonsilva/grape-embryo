@@ -28,4 +28,5 @@ group :test do
   gem 'rack-test', '~> 0.6.3'
   gem 'shoulda-matchers', '~> 3.0.1'
   gem 'factory_girl', '~> 4.5.0'
+  gem 'database_cleaner', '~> 1.5.1'
 end

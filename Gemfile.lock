@@ -31,6 +31,7 @@ GEM
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
+    database_cleaner (1.5.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
@@ -183,6 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   airborne (~> 0.1.15)
+  database_cleaner (~> 1.5.1)
   factory_girl (~> 4.5.0)
   grape (~> 0.13.0)
   grape-activerecord (~> 1.1.1)
