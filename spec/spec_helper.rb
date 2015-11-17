@@ -5,12 +5,14 @@ ENV['RACK_ENV'] ||= 'test'
 require 'rack/test'
 require 'airborne'
 require 'factory_girl'
+require 'codeclimate-test-reporter'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 require File.expand_path('../../config/environment', __FILE__)
 
 ActiveRecord::Base.logger = nil
+CodeClimate::TestReporter.start
 
 RSpec.configure do |config|
   config.mock_with :rspec

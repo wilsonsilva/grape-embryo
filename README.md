@@ -1,6 +1,7 @@
 # Grape Embryo
 [![Build Status](https://travis-ci.org/wilsonsilva/grape-embryo.svg?branch=master)](https://travis-ci.org/wilsonsilva/grape-embryo)
 [![Code Climate](https://codeclimate.com/github/wilsonsilva/grape-embryo/badges/gpa.svg)](https://codeclimate.com/github/wilsonsilva/grape-embryo)
+[![Test Coverage](https://codeclimate.com/github/wilsonsilva/grape-embryo/badges/coverage.svg)](https://codeclimate.com/github/wilsonsilva/grape-embryo/coverage)
 
 A [Grape](http://github.com/ruby-grape/grape) app mounted on Rack that helps you put together a RESTful API.
 

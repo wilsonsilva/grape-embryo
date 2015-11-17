@@ -24,6 +24,7 @@ group :development do
 end
 
 group :test do
+  gem 'codeclimate-test-reporter', '~> 0.4.8', require: nil
   gem 'rspec', '~> 3.3'
   gem 'rack-test', '~> 0.6.3'
   gem 'shoulda-matchers', '~> 3.0.1'
