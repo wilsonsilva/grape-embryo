@@ -1,4 +1,5 @@
 # Grape Embryo
+[![Build Status](https://travis-ci.org/wilsonsilva/grape-embryo.svg?branch=master)](https://travis-ci.org/wilsonsilva/grape-embryo)
 
 A [Grape](http://github.com/ruby-grape/grape) app mounted on Rack that helps you put together a RESTful API.
 

@@ -1,0 +1,9 @@
+cache: bundler
+language: ruby
+install:
+  - bundle install --retry=3
+before_script:
+  - bundle exec rake db:setup
+script:
+  - bundle exec rspec
+  - bundle exec rubocop
