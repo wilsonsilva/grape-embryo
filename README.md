@@ -50,7 +50,6 @@ $ rackup
 * List tasks `bundle exec rake --tasks`
 * Generate migration file: `bundle exec rake g:migration NAME=migration_name`
 * All ActiveRecord rake tasks are accessible: `db:migrate`, `db:drop`, `db:seed`, etc
-* Start the server: `rackup`
 
 ## License
 
