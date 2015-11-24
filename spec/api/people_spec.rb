@@ -54,9 +54,20 @@ describe Embryo::People, type: :api do
       get '/people', 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
       expect_status(200)
-      expect_json('?', name: 'Big Brother')
-      expect_json('?', name: 'Salazar')
+      expect_json('0', name: 'Big Brother')
+      expect_json('1', name: 'Salazar')
       expect_json_sizes(2)
+    end
+
+    context 'with sort param' do
+      it 'list the people ordered by birth date' do
+        get '/people?sort=name:desc', 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+
+        expect_status(200)
+        expect_json('0', name: 'Salazar')
+        expect_json('1', name: 'Big Brother')
+        expect_json_sizes(2)
+      end
     end
   end
 end

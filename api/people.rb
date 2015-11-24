@@ -45,8 +45,11 @@ module Embryo
     end
 
     desc 'List all people'
+    params do
+      optional :sort, type: Params::Sort, desc: 'The sort fields and directions.'
+    end
     get '/people' do
-      Person.all
+      Person.all.order(params[:sort].to_s)
     end
   end
 end
