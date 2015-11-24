@@ -4,7 +4,9 @@ module Embryo
   class People < Grape::API
     version 'v1', using: :header, vendor: 'embryo', format: :json, strict: true
 
-    desc 'Create a person'
+    desc 'Create a person' do
+      detail 'Creates a new person object.'
+    end
     params do
       requires :name, type: String, desc: 'The name of the person.'
       requires :born_at, type: DateTime, desc: 'The date of birth of the person.'
@@ -13,7 +15,10 @@ module Embryo
       Person.create!(declared(params))
     end
 
-    desc 'Retrieve a person'
+    desc 'Retrieve a person' do
+      detail 'Retrieves the details of an existing person. You need only supply the unique person identifier that
+              was returned upon person creation.'
+    end
     params do
       requires :id, type: Integer, desc: 'The ID of the person.'
     end
@@ -44,7 +49,10 @@ module Embryo
       status 204
     end
 
-    desc 'List all people'
+    desc 'List all people' do
+      detail 'Returns a list of your people. People are returned sorted by creation date, with the most recent
+              people appearing last.'
+    end
     params do
       optional :sort, type: Params::Sort, desc: 'The sort fields and directions.'
     end
