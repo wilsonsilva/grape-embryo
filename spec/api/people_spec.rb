@@ -69,5 +69,25 @@ describe Embryo::People, type: :api do
         expect_json_sizes(2)
       end
     end
+
+    context 'when page is present' do
+      it 'list paginated results' do
+        get '/people?page=1', 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+
+        expect_header('X-Total', '2')
+        expect_header('X-Total-Pages', '1')
+        expect_header('X-Per-Page', '25')
+        expect_header('X-Page', '1')
+        expect_header('X-Next-Page', '')
+        expect_header('X-Prev-Page', '')
+        expect_header('X-Offset', '0')
+
+        expect_status(200)
+
+        expect_json('0', name: 'Big Brother')
+        expect_json('1', name: 'Salazar')
+        expect_json_sizes(2)
+      end
+    end
   end
 end

@@ -2,6 +2,8 @@ module Embryo
   # The API allows you to create, delete, and update people. You can retrieve individual persons as well as a list
   # of all people.
   class People < Grape::API
+    include Grape::Kaminari
+
     version 'v1', using: :header, vendor: 'embryo', format: :json, strict: true
 
     desc 'Create a person' do
@@ -56,8 +58,9 @@ module Embryo
     params do
       optional :sort, type: Params::Sort, desc: 'The sort fields and directions.'
     end
+    paginate
     get '/people' do
-      Person.all.order(params[:sort].to_s)
+      paginate Person.all.order(params[:sort].to_s)
     end
   end
 end
