@@ -5,6 +5,7 @@ require 'rubygems'
 require 'rack/test'
 require 'airborne'
 require 'factory_girl'
+require 'pry'
 
 ENV['RACK_ENV'] ||= 'test'
 
