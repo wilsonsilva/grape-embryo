@@ -48,6 +48,7 @@ module Embryo
     delete '/people/:id' do
       Person.destroy(params[:id])
 
+      body false
       status 204
     end
 
