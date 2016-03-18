@@ -22,7 +22,7 @@ group :development do
   gem 'guard-rack', '~> 2.1.1'
   gem 'guard-rspec', '~> 4.6.4'
   gem 'guard-rubocop', '~> 1.2.0'
-  gem 'rubocop', '~> 0.36.0'
+  gem 'rubocop', '~> 0.38.0'
 end
 
 group :test do
