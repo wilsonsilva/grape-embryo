@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'grape', '~> 0.14.0'
 gem 'grape-activerecord', '~> 1.1.1'
