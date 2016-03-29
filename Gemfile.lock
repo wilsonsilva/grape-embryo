@@ -27,7 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    airborne (0.1.15)
+    airborne (0.2.3)
       activesupport (>= 3.0.0)
       rack-test (~> 0.6, >= 0.6.2)
       rest-client (~> 1.7, >= 1.7.3)
@@ -220,7 +220,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airborne (~> 0.1.15)
+  airborne (~> 0.2.3)
   codeclimate-test-reporter (~> 0.4.8)
   database_cleaner (~> 1.5.1)
   factory_girl (~> 4.5.0)

@@ -38,7 +38,7 @@ describe Embryo::People, type: :api do
     let(:person) { create(:person, name: 'Big Brother', born_at: '04/04/1984') }
 
     it 'deletes a person' do
-      delete "/people/#{person.id}", 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+      delete "/people/#{person.id}", {}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
       expect_status(204)
       expect(response.body).to be_empty

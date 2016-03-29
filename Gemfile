@@ -14,7 +14,7 @@ gem 'rack-cors', '~> 0.4.0'
 gem 'sqlite3', '~> 1.3.11'
 
 group :development do
-  gem 'airborne', '~> 0.1.15'
+  gem 'airborne', '~> 0.2.3'
   gem 'rack-console', '~> 1.3.1'
   gem 'rake', '~> 10.4.2'
   gem 'guard', '~> 2.13.0'
