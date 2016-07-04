@@ -3,6 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/wilsonsilva/grape-embryo/badges/gpa.svg)](https://codeclimate.com/github/wilsonsilva/grape-embryo)
 [![Test Coverage](https://codeclimate.com/github/wilsonsilva/grape-embryo/badges/coverage.svg)](https://codeclimate.com/github/wilsonsilva/grape-embryo/coverage)
 [![Security](https://hakiri.io/github/wilsonsilva/grape-embryo/master.svg)](https://hakiri.io/github/wilsonsilva/grape-embryo/master)
+![No monkey-patches](https://img.shields.io/badge/monkey--patches-0-brightgreen.svg)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 A [Grape](http://github.com/ruby-grape/grape) app mounted on Rack that helps you put together a RESTful API.
