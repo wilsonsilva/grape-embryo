@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'db/schema.rb'
+    - 'vendor/**/*'
 
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:
