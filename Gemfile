@@ -30,6 +30,6 @@ group :test do
   gem 'database_cleaner', '~> 1.5.1'
   gem 'factory_girl', '~> 4.5.0'
   gem 'rack-test', '~> 0.6.3'
-  gem 'rspec', '~> 3.4.0'
+  gem 'rspec', '~> 3.5.0'
   gem 'shoulda-matchers', '~> 3.1.1'
 end
