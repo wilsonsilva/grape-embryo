@@ -1,5 +1,5 @@
 module Embryo
-  # The rack app
+  # The rack app where the Grape-powered API will be mounted on
   class App
     def self.instance
       @instance ||= Rack::Builder.new do

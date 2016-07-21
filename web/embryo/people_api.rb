@@ -1,7 +1,7 @@
 module Embryo
   # The API allows you to create, delete, and update people. You can retrieve individual persons as well as a list
   # of all people.
-  class People < Grape::API
+  class PeopleAPI < Grape::API
     include Grape::Kaminari
 
     version 'v1', using: :header, vendor: 'embryo', format: :json, strict: true
