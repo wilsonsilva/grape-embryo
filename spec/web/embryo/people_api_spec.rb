@@ -39,7 +39,7 @@ describe Embryo::PeopleAPI, type: :api do
 
     context 'when the person does not exist' do
       it 'does not retrieve a person' do
-        get "/people/1984", 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+        get '/people/1984', 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
         expect_status(404)
         expect_json(errors: [{ detail: 'Could not find person with id 1984' }])
@@ -48,14 +48,39 @@ describe Embryo::PeopleAPI, type: :api do
   end
 
   describe 'PUT /people/:id' do
-    let(:person) { create(:person, name: 'Big Brother', born_at: '04/04/1984') }
+    context 'when the person exists' do
+      let!(:person) { create(:person, name: 'Big Brother', born_at: '04/04/1984') }
 
-    it 'updates a person' do
-      put "/people/#{person.id}", {name: 'Dr. Big Brother'}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+      context 'and the provided person attributes are valid' do
+        it 'updates a person' do
+          put "/people/#{person.id}", {name: 'Dr. Big Brother'}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
-      expect_status(200)
-      expect_json(name: 'Dr. Big Brother')
-      expect(person.reload).to have_attributes(name: 'Dr. Big Brother')
+          expect_status(200)
+          expect_json(name: 'Dr. Big Brother')
+          expect(person.reload).to have_attributes(name: 'Dr. Big Brother')
+        end
+      end
+
+      context 'and the provided person attributes are invalid' do
+        let(:huge_name) { 'DHH' * 30 }
+
+        it 'does not update a person' do
+          put "/people/#{person.id}", {name: huge_name}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+
+          expect_status(422)
+          expect_json(errors: [{ detail: 'Name is too long (maximum is 70 characters)' }])
+          expect(person.reload).to have_attributes(name: 'Big Brother')
+        end
+      end
+    end
+
+    context 'when the person does not exist' do
+      it 'does not update a person' do
+        put '/people/1984', {name: 'Dr. Big Brother'}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+
+        expect_status(404)
+        expect_json(errors: [{ detail: 'Could not find person with id 1984' }])
+      end
     end
   end
 

@@ -48,10 +48,19 @@ module Embryo
       optional :born_at, type: DateTime, desc: 'The date of birth of the person.'
     end
     put '/people/:id' do
-      person = Person.find(params[:id])
+      person = Person.find_by_id(params[:id])
 
-      person.update!(declared(params, include_missing: false))
-      person
+      if person
+        person.update(declared(params, include_missing: false))
+
+        if person.valid?
+          person
+        else
+          errors!(person.errors.full_messages, status_code: 422)
+        end
+      else
+        errors!("Could not find person with id #{params[:id]}", status_code: 404)
+      end
     end
 
     desc 'Delete a person'
