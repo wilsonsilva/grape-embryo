@@ -26,13 +26,24 @@ describe Embryo::PeopleAPI, type: :api do
   end
 
   describe 'GET /people/:id' do
-    let(:person) { create(:person, name: 'Big Brother', born_at: '04/04/1984') }
+    context 'when the person exists' do
+      let(:person) { create(:person, name: 'Big Brother', born_at: '04/04/1984') }
 
-    it 'retrieves a person' do
-      get "/people/#{person.id}", 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+      it 'retrieves a person' do
+        get "/people/#{person.id}", 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
-      expect_status(200)
-      expect_json(name: 'Big Brother')
+        expect_status(200)
+        expect_json(name: 'Big Brother')
+      end
+    end
+
+    context 'when the person does not exist' do
+      it 'does not retrieve a person' do
+        get "/people/1984", 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+
+        expect_status(404)
+        expect_json(errors: [{ detail: 'Could not find person with id 1984' }])
+      end
     end
   end
 

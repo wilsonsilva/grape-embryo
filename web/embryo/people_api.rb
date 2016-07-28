@@ -32,7 +32,13 @@ module Embryo
       requires :id, type: Integer, desc: 'The ID of the person.'
     end
     get '/people/:id' do
-      Person.find(params[:id])
+      person = Person.find_by_id(params[:id])
+
+      if person
+        person
+      else
+        errors!("Could not find person with id #{params[:id]}", status_code: 404)
+      end
     end
 
     desc 'Update a person'
