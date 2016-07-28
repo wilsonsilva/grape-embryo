@@ -2,12 +2,26 @@ require 'spec_helper'
 
 describe Embryo::PeopleAPI, type: :api do
   describe 'POST /people' do
-    it 'creates a person' do
-      post '/people', {name: 'Big Brother', born_at: '04/04/1984'}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+    context 'when the request parameters are valid' do
+      it 'creates a person' do
+        post '/people', {name: 'Big Brother', born_at: '04/04/1984'}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
-      expect_status(201)
-      expect_json(name: 'Big Brother', born_at: '1984-04-04T00:00:00.000+00:00')
-      expect(Embryo::Person.first).to have_attributes(name: 'Big Brother')
+        expect_status(201)
+        expect_json(name: 'Big Brother', born_at: '1984-04-04T00:00:00.000+00:00')
+        expect(Embryo::Person.first).to have_attributes(name: 'Big Brother')
+      end
+    end
+
+    context 'when the request parameters are invalid' do
+      let(:huge_name) { 'DHH' * 30 }
+
+      it 'does not create a person' do
+        post '/people', {name: huge_name, born_at: '04/04/1984'}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+
+        expect_status(422)
+        expect_json(errors: [{ detail: 'Name is too long (maximum is 70 characters)' }])
+        expect(Embryo::Person.count).to eq(0)
+      end
     end
   end
 

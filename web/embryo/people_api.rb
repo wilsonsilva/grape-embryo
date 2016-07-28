@@ -3,6 +3,7 @@ module Embryo
   # of all people.
   class PeopleAPI < Grape::API
     include Grape::Kaminari
+    include Grape::ResponseHelpers
 
     version 'v1', using: :header, vendor: 'embryo', format: :json, strict: true
 
@@ -14,7 +15,13 @@ module Embryo
       requires :born_at, type: DateTime, desc: 'The date of birth of the person.'
     end
     post '/people' do
-      Person.create!(declared(params))
+      person = Person.create(declared(params))
+
+      if person.persisted?
+        person
+      else
+        errors!(person.errors.full_messages, status_code: 422)
+      end
     end
 
     desc 'Retrieve a person' do
