@@ -12,3 +12,7 @@ Style/SpaceInsideHashLiteralBraces:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/MethodName:
+  Exclude:
+    - 'lib/operations/result.rb'
