@@ -44,10 +44,70 @@ Start the server
 ```
 $ rackup
 
-[2015-11-15 09:58:59] INFO  WEBrick 1.3.1
-[2015-11-15 09:58:59] INFO  ruby 2.2.3 (2015-08-18) [x86_64-darwin14]
-[2015-11-15 09:58:59] INFO  WEBrick::HTTPServer#start: pid=247 port=9292
+[2018-05-28 15:17:47] INFO  WEBrick 1.4.2
+[2018-05-28 15:17:47] INFO  ruby 2.5.1 (2018-03-29) [x86_64-darwin17]
+[2018-05-28 15:17:47] INFO  WEBrick::HTTPServer#start: pid=65440 port=9292
 ```
+
+## Architecture
+
+### Goals
+
+#### Independent of Frameworks
+
+The architecture does not depend on the existence of some library of feature laden software.
+This allows such frameworks to be used as tools, rather than having to cram the system into their limited constraints.
+The business rules can be tested without the UI, Database, Web Server, or any other external element.
+
+#### Independent of UI
+
+The UI can change easily, without changing the rest of the system. A Web UI could be replaced with a console UI,
+for example, without changing the business rules.
+
+#### Independent of Database
+
+It is easy to can swap out Sqlite or PostgreSQL, for Mongo, BigTable, CouchDB, or something else.
+The business rules are not bound to the database.
+
+### Organizational layers
+
+#### Delivery
+
+This is where the web part of the application is stored. It includes all the HTTP related logic such as headers,
+redirection, status codes, JSON serialization, etc. This layer has no awareness of persistence.
+
+* `web/[namespace]`- HTTP delivery mechanism
+* `web/[namespace]api.rb` - Api route index
+* `web/[namespace]app.rb` - Rack/Grape app
+* `web/[namespace]/resource_api.rb` - Rack/Grape app
+
+#### Business Logic
+
+All business requirements of the application are contained in the `lib` folder, in a folder named after the app.
+In this example our app is called `embryo`, and so is the folder. Examples of business logic:
+
+* Verify user authorization
+* Choose data to be displayed
+* Determine if additional user input is required
+* `lib/[namespace]` - Root folder for the application business logic
+* `lib/[namespace]/models` - Active Record models
+* `lib/[namespace]/operations` - Use cases of the system
+
+#### Persistence Logic
+
+Stores and retrieves data to achieve business requirements. Examples:
+
+* Make an API call
+* Query a local database
+* Access the local filesystem
+
+#### Utilities
+
+* `lib/matchers` - Operation matchers
+* `lib/operations` - Operation helpers
+* `lib/params` - Delivery mechanism helpers
+* `lib/grape` - Delivery mechanism helpers
+* `spec` - Tests
 
 ## Development
 
