@@ -15,12 +15,9 @@ module Embryo
       requires :born_at, type: DateTime, desc: 'The date of birth of the person.'
     end
     post '/people' do
-      person = Person.create(declared(params))
-
-      if person.persisted?
-        person
-      else
-        errors!(person.errors.full_messages, status_code: 422)
+      Operations::People::CreatePerson.new.call(declared(params)) do |on|
+        on.success { |person| person }
+        on.failure { |errors| errors!(errors, status_code: 422) }
       end
     end
 
@@ -32,12 +29,9 @@ module Embryo
       requires :id, type: Integer, desc: 'The ID of the person.'
     end
     get '/people/:id' do
-      person = Person.find_by_id(params[:id])
-
-      if person
-        person
-      else
-        errors!("Could not find person with id #{params[:id]}", status_code: 404)
+      Operations::People::FindPerson.new.call(params[:id]) do |on|
+        on.success { |person| person }
+        on.failure { |errors| errors!(errors, status_code: 404) }
       end
     end
 
@@ -48,18 +42,12 @@ module Embryo
       optional :born_at, type: DateTime, desc: 'The date of birth of the person.'
     end
     put '/people/:id' do
-      person = Person.find_by_id(params[:id])
+      person_attributes = declared(params, include_missing: false)
 
-      if person
-        person.update(declared(params, include_missing: false))
-
-        if person.valid?
-          person
-        else
-          errors!(person.errors.full_messages, status_code: 422)
-        end
-      else
-        errors!("Could not find person with id #{params[:id]}", status_code: 404)
+      Operations::People::UpdatePerson.new.call(params[:id], person_attributes) do |on|
+        on.success { |person| person }
+        on.failure(:not_found)   { |errors| errors!(errors, status_code: 404) }
+        on.failure(:not_updated) { |errors| errors!(errors, status_code: 422) }
       end
     end
 
@@ -68,13 +56,9 @@ module Embryo
       requires :id, type: Integer, desc: 'The ID of the person.'
     end
     delete '/people/:id' do
-      begin
-        Person.delete(params[:id])
-
-        body false
-        status 204
-      rescue ActiveRecord::ActiveRecordError => error
-        errors!(error.message, status_code: 422)
+      Operations::People::DeletePerson.new.call(params[:id]) do |on|
+        on.success { body false }
+        on.failure { |errors| errors!(errors, status_code: 422) }
       end
     end
 
@@ -87,7 +71,10 @@ module Embryo
     end
     paginate
     get '/people' do
-      paginate Person.all.order(params[:sort].to_s)
+      Operations::People::FindPeople.new.call(params[:sort]) do |on|
+        on.success { |people| paginate people }
+        on.failure { |errors| errors!(errors, status_code: 500) }
+      end
     end
   end
 end
