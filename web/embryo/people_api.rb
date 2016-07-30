@@ -71,7 +71,10 @@ module Embryo
     end
     paginate
     get '/people' do
-      paginate Person.all.order(params[:sort].to_s)
+      Operations::People::FindPeople.new.call(params[:sort]) do |on|
+        on.success { |people| paginate people }
+        on.failure { |errors| errors!(errors, status_code: 500) }
+      end
     end
   end
 end
