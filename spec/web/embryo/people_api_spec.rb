@@ -85,14 +85,38 @@ describe Embryo::PeopleAPI, type: :api do
   end
 
   describe 'DELETE /people/:id' do
-    let(:person) { create(:person, name: 'Big Brother', born_at: '04/04/1984') }
+    context 'when the person exists' do
+      let!(:person) { create(:person, name: 'Big Brother', born_at: '04/04/1984') }
 
-    it 'deletes a person' do
-      delete "/people/#{person.id}", {}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+      it 'deletes a person' do
+        delete "/people/#{person.id}", {}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
-      expect_status(204)
-      expect(response.body).to be_empty
-      expect(Embryo::Person.where(id: person.id)).not_to exist
+        expect_status(204)
+        expect(response.body).to be_empty
+        expect(Embryo::Person.where(id: person.id)).not_to exist
+      end
+    end
+
+    context 'when the person does not exist' do
+      it 'responds with No Content' do
+        delete '/people/1984', {}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+
+        expect_status(204)
+        expect(response.body).to be_empty
+      end
+    end
+
+    context 'when there is an error while deleting the person' do
+      let(:not_destroyed_exception) { ActiveRecord::ActiveRecordError.new('The record was not deleted.') }
+
+      before { allow(Embryo::Person).to receive(:delete).and_raise(not_destroyed_exception) }
+
+      it 'responds with an error message' do
+        delete '/people/1984', {}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
+
+        expect_status(422)
+        expect_json(errors: [{ detail: 'The record was not deleted.' }])
+      end
     end
   end
 
