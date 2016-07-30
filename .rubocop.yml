@@ -16,3 +16,6 @@ Style/FrozenStringLiteralComment:
 Style/MethodName:
   Exclude:
     - 'lib/operations/result.rb'
+
+Style/LambdaCall:
+  Enabled: false

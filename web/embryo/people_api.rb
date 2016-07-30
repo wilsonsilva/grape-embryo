@@ -15,12 +15,9 @@ module Embryo
       requires :born_at, type: DateTime, desc: 'The date of birth of the person.'
     end
     post '/people' do
-      person = Person.create(declared(params))
-
-      if person.persisted?
-        person
-      else
-        errors!(person.errors.full_messages, status_code: 422)
+      Operations::People::CreatePerson.new.call(declared(params)) do |on|
+        on.success { |person| person }
+        on.failure { |errors| errors!(errors, status_code: 422) }
       end
     end
 
