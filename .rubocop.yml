@@ -9,3 +9,6 @@ Metrics/LineLength:
 
 Style/SpaceInsideHashLiteralBraces:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
