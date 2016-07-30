@@ -45,18 +45,12 @@ module Embryo
       optional :born_at, type: DateTime, desc: 'The date of birth of the person.'
     end
     put '/people/:id' do
-      person = Person.find_by_id(params[:id])
+      person_attributes = declared(params, include_missing: false)
 
-      if person
-        person.update(declared(params, include_missing: false))
-
-        if person.valid?
-          person
-        else
-          errors!(person.errors.full_messages, status_code: 422)
-        end
-      else
-        errors!("Could not find person with id #{params[:id]}", status_code: 404)
+      Operations::People::UpdatePerson.new.call(params[:id], person_attributes) do |on|
+        on.success { |person| person }
+        on.failure(:not_found)   { |errors| errors!(errors, status_code: 404) }
+        on.failure(:not_updated) { |errors| errors!(errors, status_code: 422) }
       end
     end
 
