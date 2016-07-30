@@ -65,13 +65,9 @@ module Embryo
       requires :id, type: Integer, desc: 'The ID of the person.'
     end
     delete '/people/:id' do
-      begin
-        Person.delete(params[:id])
-
-        body false
-        status 204
-      rescue ActiveRecord::ActiveRecordError => error
-        errors!(error.message, status_code: 422)
+      Operations::People::DeletePerson.new.call(params[:id]) do |on|
+        on.success { body false }
+        on.failure { |errors| errors!(errors, status_code: 422) }
       end
     end
 
