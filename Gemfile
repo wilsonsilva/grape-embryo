@@ -22,7 +22,7 @@ group :development do
   gem 'guard-rack', '~> 2.1.1'
   gem 'guard-rspec', '~> 4.6.4'
   gem 'guard-rubocop', '~> 1.2.0'
-  gem 'rubocop', '~> 0.38.0'
+  gem 'rubocop', '~> 0.42.0'
 end
 
 group :test do
@@ -30,6 +30,6 @@ group :test do
   gem 'database_cleaner', '~> 1.5.1'
   gem 'factory_girl', '~> 4.5.0'
   gem 'rack-test', '~> 0.6.3'
-  gem 'rspec', '~> 3.4.0'
+  gem 'rspec', '~> 3.5.0'
   gem 'shoulda-matchers', '~> 3.1.1'
 end

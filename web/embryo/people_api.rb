@@ -3,6 +3,7 @@ module Embryo
   # of all people.
   class PeopleAPI < Grape::API
     include Grape::Kaminari
+    include Grape::ResponseHelpers
 
     version 'v1', using: :header, vendor: 'embryo', format: :json, strict: true
 
@@ -14,7 +15,13 @@ module Embryo
       requires :born_at, type: DateTime, desc: 'The date of birth of the person.'
     end
     post '/people' do
-      Person.create!(declared(params))
+      person = Person.create(declared(params))
+
+      if person.persisted?
+        person
+      else
+        errors!(person.errors.full_messages, status_code: 422)
+      end
     end
 
     desc 'Retrieve a person' do
@@ -25,7 +32,13 @@ module Embryo
       requires :id, type: Integer, desc: 'The ID of the person.'
     end
     get '/people/:id' do
-      Person.find(params[:id])
+      person = Person.find_by_id(params[:id])
+
+      if person
+        person
+      else
+        errors!("Could not find person with id #{params[:id]}", status_code: 404)
+      end
     end
 
     desc 'Update a person'
@@ -35,10 +48,19 @@ module Embryo
       optional :born_at, type: DateTime, desc: 'The date of birth of the person.'
     end
     put '/people/:id' do
-      person = Person.find(params[:id])
+      person = Person.find_by_id(params[:id])
 
-      person.update!(declared(params, include_missing: false))
-      person
+      if person
+        person.update(declared(params, include_missing: false))
+
+        if person.valid?
+          person
+        else
+          errors!(person.errors.full_messages, status_code: 422)
+        end
+      else
+        errors!("Could not find person with id #{params[:id]}", status_code: 404)
+      end
     end
 
     desc 'Delete a person'
@@ -46,10 +68,14 @@ module Embryo
       requires :id, type: Integer, desc: 'The ID of the person.'
     end
     delete '/people/:id' do
-      Person.destroy(params[:id])
+      begin
+        Person.delete(params[:id])
 
-      body false
-      status 204
+        body false
+        status 204
+      rescue ActiveRecord::ActiveRecordError => error
+        errors!(error.message, status_code: 422)
+      end
     end
 
     desc 'List all people' do
