@@ -25,13 +25,19 @@ module Embryo
         private
 
         def update_person(person, person_attributes)
-          person.update(person_attributes)
+          validation = Schemas::People::Update.call(person_attributes)
 
-          if person.valid?
+          if validation.success?
+            person.update(person_attributes)
             Success(value: person)
           else
-            Failure(value: person.errors.full_messages, code: :not_updated)
+            error_messages = extract_error_messages(validation)
+            Failure(value: error_messages, code: :not_updated)
           end
+        end
+
+        def extract_error_messages(validation)
+          validation.message_set.messages.map { |message| "#{message.rule} #{message.text}" }
         end
       end
     end

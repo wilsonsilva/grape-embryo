@@ -10,15 +10,23 @@ module Embryo
         # @option person_attributes [String] :name The name of the person
         # @option person_attributes [String] :born_at Birthday of the person.
         def call(person_attributes)
-          person = Person.create(person_attributes)
+          validation = Schemas::People::Create.call(person_attributes)
 
-          if person.persisted?
+          if validation.success?
+            person = Person.create(person_attributes)
             Success(value: person)
           else
-            Failure(code: :not_created, value: person.errors.full_messages)
+            error_messages = extract_error_messages(validation)
+            Failure(code: :not_created, value: error_messages)
           end
         rescue ActiveRecord::UnknownAttributeError => error
           Failure(code: :not_created, value: error.message)
+        end
+
+        private
+
+        def extract_error_messages(validation)
+          validation.message_set.messages.map { |message| "#{message.rule} #{message.text}" }
         end
       end
     end
