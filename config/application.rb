@@ -8,6 +8,7 @@ Bundler.require :default, ENV['RACK_ENV']
 
 Dir[File.expand_path('../../lib/matchers/*.rb', __FILE__)].each { |f| require f }
 Dir[File.expand_path('../../lib/operations/*.rb', __FILE__)].each { |f| require f }
+Dir[File.expand_path('../../lib/schemas/*.rb', __FILE__)].each { |f| require f }
 Dir[File.expand_path('../../lib/**/*.rb', __FILE__)].each { |f| require f }
 
 Dir[File.expand_path('../../web/params/**/*.rb', __FILE__)].each { |f| require f }

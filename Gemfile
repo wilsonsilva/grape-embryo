@@ -13,6 +13,7 @@ gem 'rack', '~> 1.6.0'
 gem 'rack-cors', '~> 0.4.0'
 gem 'sqlite3', '~> 1.3.11'
 gem 'dry-matcher', '~> 0.5.0'
+gem 'dry-validation', '~> 0.9.5'
 
 group :development do
   gem 'airborne', '~> 0.2.3'

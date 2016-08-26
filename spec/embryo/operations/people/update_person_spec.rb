@@ -42,7 +42,7 @@ RSpec.describe Embryo::Operations::People::UpdatePerson do
           result = update_person.(person.id, invalid_attributes)
 
           expect(result.code).to eq(:not_updated)
-          expect(result.value).to eq("unknown attribute 'naame' for Embryo::Person.")
+          expect(result.value).to contain_exactly('name is missing')
         end
 
         it 'is a failure' do

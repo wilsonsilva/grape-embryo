@@ -19,7 +19,7 @@ describe Embryo::PeopleAPI, type: :api do
         post '/people', {name: huge_name, born_at: '04/04/1984'}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
         expect_status(422)
-        expect_json(errors: [{ detail: 'Name is too long (maximum is 70 characters)' }])
+        expect_json(errors: [{ detail: 'name size cannot be greater than 70' }])
         expect(Embryo::Person.count).to eq(0)
       end
     end
@@ -68,7 +68,7 @@ describe Embryo::PeopleAPI, type: :api do
           put "/people/#{person.id}", {name: huge_name}, 'HTTP_ACCEPT' => 'application/vnd.embryo-v1+json'
 
           expect_status(422)
-          expect_json(errors: [{ detail: 'Name is too long (maximum is 70 characters)' }])
+          expect_json(errors: [{ detail: 'name size cannot be greater than 70' }])
           expect(person.reload).to have_attributes(name: 'Big Brother')
         end
       end

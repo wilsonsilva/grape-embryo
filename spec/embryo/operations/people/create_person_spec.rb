@@ -35,7 +35,7 @@ RSpec.describe Embryo::Operations::People::CreatePerson do
         result = create_person.(invalid_attributes)
 
         expect(result.code).to eq(:not_created)
-        expect(result.value).to eq("unknown attribute 'naame' for Embryo::Person.")
+        expect(result.value).to contain_exactly('born_at is missing', 'name is missing')
       end
 
       it 'is a failure' do
