@@ -5,15 +5,22 @@ require 'rubygems'
 require 'rack/test'
 require 'airborne'
 require 'factory_girl'
+require 'rom_factory'
 require 'pry'
 
-ENV['RACK_ENV'] ||= 'test'
-
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+ENV['RACK_ENV'] = 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
 
 ActiveRecord::Base.logger = nil
+
+DatabaseCleaner[:sequel, connection: ROMConnection.gateways[:default].connection].strategy = :truncation
+
+RomFactory::Config.configure do |config|
+  config.container = ROMConnection
+end
+
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   config.mock_with :rspec
@@ -21,12 +28,10 @@ RSpec.configure do |config|
   config.raise_errors_for_deprecations!
   config.rack_app = Embryo::App.instance
 
-  config.include Shoulda::Matchers::ActiveModel, type: :model
-  config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include FactoryGirl::Syntax::Methods
+  config.include RomFactory::Syntax::Methods
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
 

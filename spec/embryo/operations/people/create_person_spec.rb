@@ -4,17 +4,19 @@ RSpec.describe Embryo::Operations::People::CreatePerson do
   subject(:create_person) { described_class.new }
 
   describe '#call' do
+    let(:people_repo) { Embryo::Repositories::PeopleRepo.new(ROMConnection) }
+
     context 'when the person attributes are valid' do
-      let(:valid_attributes) { attributes_for(:person) }
+      let(:valid_attributes) { { name: 'Wilson', born_at: '15/11/1990' } }
 
       it 'creates a person' do
-        expect { create_person.(valid_attributes) }.to change { Embryo::Person.count }.to(1)
+        expect { create_person.(valid_attributes) }.to change { people_repo.count }.to(1)
       end
 
       it 'returns a person' do
         result = create_person.(valid_attributes)
 
-        expect(result.value).to eq(Embryo::Person.first)
+        expect(result.value).to eq(people_repo.first)
       end
 
       it 'is a success' do
@@ -28,7 +30,7 @@ RSpec.describe Embryo::Operations::People::CreatePerson do
       let(:invalid_attributes) { { naame: 'Boris' } }
 
       it 'does not create a person' do
-        expect { create_person.(invalid_attributes) }.not_to change { Embryo::Person.count }
+        expect { create_person.(invalid_attributes) }.not_to change { people_repo.count }
       end
 
       it 'returns an error code and an error message' do

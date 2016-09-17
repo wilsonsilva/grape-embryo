@@ -49,6 +49,8 @@ $ rackup
 [2015-11-15 09:58:59] INFO  WEBrick::HTTPServer#start: pid=247 port=9292
 ```
 
+## Folder Structure
+
 ## Development
 
 * Run console: `rack-console`

@@ -14,6 +14,9 @@ gem 'rack-cors', '~> 0.4.0'
 gem 'sqlite3', '~> 1.3.11'
 gem 'dry-matcher', '~> 0.5.0'
 gem 'dry-validation', '~> 0.9.5'
+gem 'rom-repository', '~> 0.3.1'
+gem 'rom-sql', '~> 0.8.0'
+gem 'rom_factory', github: 'wilsonsilva/rom_factory', branch: 'add-compatibility-with-name-attr'
 
 group :development do
   gem 'airborne', '~> 0.2.3'

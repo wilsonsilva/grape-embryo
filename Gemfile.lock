@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/wilsonsilva/rom_factory.git
+  revision: 5c808ad80d0c98b341c561c236fb5aa47be640fb
+  branch: add-compatibility-with-name-attr
+  specs:
+    rom_factory (0.1.3)
+      dry-configurable (~> 0.1)
+      dry-container (~> 0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -201,6 +210,31 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rom (2.0.0)
+      concurrent-ruby (~> 1.0)
+      dry-equalizer (~> 0.2)
+      dry-types (~> 0.8)
+      rom-mapper (~> 0.4.0)
+      rom-support (~> 2.0)
+    rom-mapper (0.4.0)
+      dry-equalizer (~> 0.2)
+      rom-support (~> 2.0.0)
+      transproc (~> 0.4.0)
+    rom-repository (0.3.1)
+      rom (~> 2.0)
+      rom-mapper (~> 0.4)
+      rom-support (~> 2.0)
+    rom-sql (0.8.0)
+      dry-equalizer (~> 0.2)
+      dry-types (~> 0.8)
+      rom (~> 2.0)
+      rom-support (~> 2.0)
+      sequel (~> 4.25)
+    rom-support (2.0.0)
+      concurrent-ruby (~> 1.0)
+      dry-equalizer (~> 0.2)
+      transproc (~> 0.4.0)
+      wisper (~> 1.6, >= 1.6.0)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -221,6 +255,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
+    sequel (4.38.0)
     shellany (0.0.1)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
@@ -235,6 +270,7 @@ GEM
     sqlite3 (1.3.11)
     thor (0.19.1)
     thread_safe (0.3.5)
+    transproc (0.4.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unf (0.1.4)
@@ -246,6 +282,7 @@ GEM
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
       equalizer (~> 0.0, >= 0.0.9)
+    wisper (1.6.1)
 
 PLATFORMS
   ruby
@@ -276,10 +313,13 @@ DEPENDENCIES
   rack-cors (~> 0.4.0)
   rack-test (~> 0.6.3)
   rake (~> 10.4.2)
+  rom-repository (~> 0.3.1)
+  rom-sql (~> 0.8.0)
+  rom_factory!
   rspec (~> 3.5.0)
   rubocop (~> 0.42.0)
   shoulda-matchers (~> 3.1.1)
   sqlite3 (~> 1.3.11)
 
 BUNDLED WITH
-   1.12.5
+   1.13.1

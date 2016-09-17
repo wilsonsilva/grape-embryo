@@ -13,13 +13,16 @@ module Embryo
           validation = Schemas::People::Create.call(person_attributes)
 
           if validation.success?
-            person = Person.create(person_attributes)
+            people_repo = Repositories::PeopleRepo.new(ROMConnection)
+            changeset   = people_repo.changeset(person_attributes).map(:add_timestamps)
+            person      = people_repo.create(changeset)
+
             Success(value: person)
           else
             error_messages = extract_error_messages(validation)
             Failure(code: :not_created, value: error_messages)
           end
-        rescue ActiveRecord::UnknownAttributeError => error
+        rescue ROM::SQL::DatabaseError => error
           Failure(code: :not_created, value: error.message)
         end
 

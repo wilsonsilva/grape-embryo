@@ -8,7 +8,9 @@ module Embryo
 
         # @param [Params::Sort] sort Sort clauses to order the people.
         def call(sort)
-          people = Person.all.order(sort.to_s)
+          people_repo = Repositories::PeopleRepo.new(ROMConnection)
+          people      = people_repo.all_sorted_by(sort.to_s)
+          # people = Person.all.order(sort.to_s)
 
           Success(value: people)
         rescue ActiveRecord::ActiveRecordError => error
