@@ -1,3 +1,5 @@
+require_relative './api'
+
 module Embryo
   # The rack app where the Grape-powered API will be mounted on
   class App
