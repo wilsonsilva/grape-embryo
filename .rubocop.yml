@@ -7,6 +7,16 @@ AllCops:
 Metrics/LineLength:
   Max: 120
 
+Metrics/BlockLength:
+ Exclude:
+  - 'spec/**/*.rb'
+
+Lint/AmbiguousBlockAssociation:
+ Exclude:
+  # These 2 are correct
+  - 'spec/embryo/operations/people/create_person_spec.rb'
+  - 'spec/embryo/operations/people/delete_person_spec.rb'
+
 Style/SpaceInsideHashLiteralBraces:
   Enabled: false
 

@@ -11,7 +11,7 @@ ENV['RACK_ENV'] ||= 'test'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 
 ActiveRecord::Base.logger = nil
 

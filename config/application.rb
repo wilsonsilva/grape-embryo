@@ -6,14 +6,14 @@ require 'boot'
 
 Bundler.require :default, ENV['RACK_ENV']
 
-Dir[File.expand_path('../../lib/matchers/*.rb', __FILE__)].each { |f| require f }
-Dir[File.expand_path('../../lib/operations/*.rb', __FILE__)].each { |f| require f }
-Dir[File.expand_path('../../lib/schemas/*.rb', __FILE__)].each { |f| require f }
-Dir[File.expand_path('../../lib/**/*.rb', __FILE__)].each { |f| require f }
+Dir[File.expand_path('../lib/matchers/*.rb', __dir__)].each { |f| require f }
+Dir[File.expand_path('../lib/operations/*.rb', __dir__)].each { |f| require f }
+Dir[File.expand_path('../lib/schemas/*.rb', __dir__)].each { |f| require f }
+Dir[File.expand_path('../lib/**/*.rb', __dir__)].each { |f| require f }
 
-Dir[File.expand_path('../../web/params/**/*.rb', __FILE__)].each { |f| require f }
-Dir[File.expand_path('../../web/**/*_api.rb', __FILE__)].each { |f| require f }
-Dir[File.expand_path('../../web/**/*.rb', __FILE__)].each { |f| require f }
+Dir[File.expand_path('../web/params/**/*.rb', __dir__)].each { |f| require f }
+Dir[File.expand_path('../web/**/*_api.rb', __dir__)].each { |f| require f }
+Dir[File.expand_path('../web/**/*.rb', __dir__)].each { |f| require f }
 
 require 'embryo/api'
 require 'embryo/app'
