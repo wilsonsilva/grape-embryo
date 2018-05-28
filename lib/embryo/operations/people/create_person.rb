@@ -26,7 +26,7 @@ module Embryo
         private
 
         def extract_error_messages(validation)
-          validation.message_set.messages.map { |message| "#{message.rule} #{message.text}" }
+          validation.errors(full: true).values.flatten
         end
       end
     end
