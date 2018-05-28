@@ -17,13 +17,13 @@ Lint/AmbiguousBlockAssociation:
   - 'spec/embryo/operations/people/create_person_spec.rb'
   - 'spec/embryo/operations/people/delete_person_spec.rb'
 
-Style/SpaceInsideHashLiteralBraces:
+Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/MethodName:
+Naming/MethodName:
   Exclude:
     - 'lib/operations/result.rb'
 
