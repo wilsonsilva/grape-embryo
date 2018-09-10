@@ -85,7 +85,7 @@ GEM
     erubis (2.7.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
-    ffi (1.9.23)
+    ffi (1.9.25)
     formatador (0.2.5)
     grape (0.19.2)
       activesupport
