@@ -12,7 +12,7 @@ gem 'kaminari', '~> 0.16.3'
 gem 'mime-types', '~> 2.6.2'
 gem 'nokogiri', '1.8.5'
 gem 'rack', '~> 1.6.0'
-gem 'rack-cors', '~> 0.4.0'
+gem 'rack-cors', '~> 1.0.6'
 gem 'sqlite3', '~> 1.3.11'
 
 group :development do
