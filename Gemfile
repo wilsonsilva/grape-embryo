@@ -23,7 +23,7 @@ group :development do
   gem 'guard-rspec', '~> 4.6.5'
   gem 'guard-rubocop', '~> 1.2.0'
   gem 'rack-console', '~> 1.3.1'
-  gem 'rake', '~> 12.3'
+  gem 'rake', '~> 13.0'
   gem 'rubocop', '~> 0.56.0'
 end
 
